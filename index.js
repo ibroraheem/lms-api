@@ -6,6 +6,7 @@ const passport = require('./middlewares/passportConfig');
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/course');
 const progressRoutes = require('./routes/progress');
+const specs = require('./swaggerOptions');
 const connectDb = require('./config/db');
 
 
@@ -28,6 +29,7 @@ connectDb();
 app.get('/', (req, res) => {
     res.status(200).send("Hello World");
 })
+
 app.use('/', authRoutes);
 app.use('/course', courseRoutes);
 app.use('/progress', progressRoutes);
