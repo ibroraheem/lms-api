@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const lessonSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId, 
     title: {
         type: String,
         required: true,
@@ -12,6 +13,10 @@ const lessonSchema = new mongoose.Schema({
     videoUrl: {
         type: String,
         required: true,
+    },
+    accessibleToAll: {
+        type: Boolean,
+        default: false,
     },
 });
 
@@ -34,21 +39,6 @@ const courseSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        },
-    ],
-    price: {
-        type: Number,
-        default: 0, 
-        required: true,
-    },
-    couponCodes: [
-        {
-            code: {
-                type: String,
-            },
-            discount: {
-                type: Number,
-            },
         },
     ],
 });

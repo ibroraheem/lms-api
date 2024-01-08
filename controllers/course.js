@@ -101,4 +101,29 @@ const deleteCourseById = async (req, res) => {
     }
 };
 
-module.exports = { createCourse, getAllCourses, getCourseById, updateCourseById, deleteCourseById };
+const getCourseContent = async (req, res) => {
+    const courseId = req.params.courseId;
+    try {
+        const course = await Course.findById(courseId);
+
+        if (!course) {
+            return res.status(404).json({ message: 'Course not found' });
+        }
+
+        const { lessons } = course;
+        const isEnrolled = course.students.includes(req.user._id);
+        if (isEnrolled) {
+            return res.status(200).json({ lessons });
+        }
+        const accessibleLessons = lessons.map((lesson, index) => ({
+            ...lesson.toObject(),
+            videoUrl: index === 0 || lesson.accessibleToAll ? lesson.videoUrl : null,
+        }));
+        res.status(200).json({ lessons: accessibleLessons });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+module.exports = { createCourse, getAllCourses, getCourseById, updateCourseById, deleteCourseById, getCourseContent };

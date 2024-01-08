@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const passport = require('./middlewares/passportConfig');
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/course');
+const progressRoutes = require('./routes/progress');
 const connectDb = require('./config/db');
 
 
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 })
 app.use('/', authRoutes);
 app.use('/course', courseRoutes);
+app.use('/progress', progressRoutes);
 
 const PORT = process.env.PORT || 3000;
 

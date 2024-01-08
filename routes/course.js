@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router()
 const passport = require('passport');
-const { createCourse, getAllCourses, getCourseById, updateCourseById, deleteCourseById } = require('../controllers/course');
+const { createCourse, getAllCourses, getCourseById, updateCourseById, deleteCourseById, getCourseContent } = require('../controllers/course');
 const { initiatePayment, handleWebhook } = require('../controllers/payment');
 const { isCourseInstructor } = require('../middlewares/middleware');
 
 router.get('/', getAllCourses);
 router.get('/:courseId', getCourseById);
 
+router.get('/:courseId/content', getCourseContent);
 const authenticate = passport.authenticate('jwt', { session: false });
 router.use(authenticate);
 
