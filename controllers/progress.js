@@ -35,6 +35,23 @@ const updateProgress = async (req, res) => {
     }
 };
 
-module.exports = {
-    updateProgress,
+const getProgress = async (req, res) => {
+    const courseId = req.params.courseId;
+    const userId = req.user._id;
+
+    try {
+        const progress = await Progress.findOne({ userId, courseId });
+
+        if (!progress) {
+            return res.status(200).json({ completedLessons: [] });
+        }
+
+        res.status(200).json({ completedLessons: progress.completedLessons });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 };
+
+
+module.exports = { updateProgress, getProgress };

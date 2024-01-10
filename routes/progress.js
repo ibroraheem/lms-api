@@ -3,12 +3,13 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { updateProgress } = require('../controllers/progress');
+const { updateProgress, getProgress } = require('../controllers/progress');
 
 const authenticate = passport.authenticate('jwt', { session: false });
 
 router.use(authenticate);
 
-router.post('/:courseId/update-progress', updateProgress);
+router.post('/:courseId', updateProgress);
+router.get('/:courseId', getProgress);
 
 module.exports = router;

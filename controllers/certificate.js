@@ -18,6 +18,4 @@ const generateCertificate = async (req, res) => {
     }
 };
 
-module.exports = {
-    generateCertificate,
-};
+module.exports = { generateCertificate };

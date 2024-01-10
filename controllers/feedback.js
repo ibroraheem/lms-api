@@ -20,6 +20,4 @@ const submitFeedback = async (req, res) => {
     }
 };
 
-module.exports = {
-    submitFeedback,
-};
+module.exports = { submitFeedback };
