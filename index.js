@@ -6,7 +6,8 @@ const passport = require('./middlewares/passportConfig');
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/course');
 const progressRoutes = require('./routes/progress');
-const specs = require('./swaggerOptions');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger_output.json');
 const connectDb = require('./config/db');
 
 
@@ -26,10 +27,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
 connectDb();
+
 app.get('/', (req, res) => {
     res.status(200).send("Hello World");
 })
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', authRoutes);
 app.use('/course', courseRoutes);
 app.use('/progress', progressRoutes);
