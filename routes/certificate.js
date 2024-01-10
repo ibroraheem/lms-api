@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { generateCertificate, getCertificates } = expressrequire('../controllers/certificate');
+const { generateCertificate, getCertificates, getCertificateByCourse } = require('../controllers/certificate');
 const { checkCourseCompletion } = require('../middlewares/middleware')
 const authenticate = passport.authenticate('jwt', { session: false });
 
