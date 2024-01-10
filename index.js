@@ -33,6 +33,8 @@ app.get('/', (req, res) => {
 app.use('/', authRoutes);
 app.use('/course', courseRoutes);
 app.use('/progress', progressRoutes);
+app.use('/feedback', require('./routes/feedback'));
+app.use('/certificate', require('./routes/certificate'));
 
 const PORT = process.env.PORT || 3000;
 
